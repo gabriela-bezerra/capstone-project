@@ -53,6 +53,7 @@ def get_specific_restaurant(restaurant_id):
 
     return Restaurant.query.get(restaurant_id)
 
+
 # Categories ------------
 
 
@@ -100,6 +101,10 @@ def filter_ratings_by_restaurant(restaurant_id):
     """Gives all ratings attributed to a restaurant."""
 
     return Rating.query.filter(Rating.restaurant_id == restaurant_id)
+
+# def delete_specific_rating(restaurant_id):
+
+#     return Restaurant.query.get(restaurant_id=restaurant_id).delete()
 
 
 # Reviews ------------

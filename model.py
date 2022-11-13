@@ -36,14 +36,15 @@ class Restaurant(db.Model):
     city = db.Column(db.String(50))
     state = db.Column(db.String(50))
     zipcode = db.Column(db.String(50))
-    latitude = db.Column(db.Integer)
-    longitude = db.Column(db.Integer)
+    latitude = db.Column(db.String(50))
+    longitude = db.Column(db.String(50))
 
     ratings = db.relationship("Rating", back_populates="restaurant")
     reviews = db.relationship("Review", back_populates="restaurant")
     photos = db.relationship("Photo", back_populates="restaurant")
-    restaurantCategory = db.relationship(
-        "RestaurantCategory", back_populates="restaurant")
+
+    categories = db.relationship(
+        "Category", secondary="restaurantsCategories", back_populates="restaurants")
 
     def __repr__(self):
         return f'<Restaurant name={self.name}>'
@@ -57,8 +58,8 @@ class Category(db.Model):
     category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
 
-    restaurantCategory = db.relationship(
-        "RestaurantCategory", back_populates="categories")
+    restaurants = db.relationship(
+        "Restaurant", secondary="restaurantsCategories", back_populates="categories")
 
     def __repr__(self):
         return f'<Category category_id={self.category_id} name={self.name}>'
@@ -67,19 +68,14 @@ class Category(db.Model):
 class RestaurantCategory(db.Model):
     """A restaurant category."""
 
-    __tablename__ = 'restaurants categories'
+    __tablename__ = 'restaurantsCategories'
 
     restaurant_category_id = db.Column(
         db.Integer, autoincrement=True, primary_key=True)
-    restaurant_id = db.Column(
-        db.Integer, db.ForeignKey("restaurants.restaurant_id"))
-    category_id = db.Column(
-        db.Integer, db.ForeignKey("categories.category_id"))
-
-    restaurant = db.relationship(
-        "Restaurant", back_populates="restaurantCategory")
-    categories = db.relationship(
-        "Category", back_populates="restaurantCategory")
+    restaurant_id = db.Column(db.Integer, db.ForeignKey(
+        "restaurants.restaurant_id"), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey(
+        "categories.category_id"), nullable=False)
 
     def __repr__(self):
         return f'<Restaurants Categories id={self.restaurant_category_id}>'
