@@ -1,24 +1,39 @@
 """Server for restaurant ratings app."""
 
-from crypt import methods
-from ssl import ALERT_DESCRIPTION_BAD_CERTIFICATE_HASH_VALUE
-from flask import (Flask, render_template, request, flash, session,
+from flask import (Flask, jsonify, render_template, request, flash, session,
                    redirect)
 from model import connect_to_db, db, User
 import crud
-from jinja2 import StrictUndefined
 
 
 app = Flask(__name__)
 app.secret_key = "dev"
-app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
 def show_homepage():
     """Show the application's homepage."""
 
-    return render_template('homepage.html')
+    return render_template('index.html')
+
+
+@app.route('/<path>')
+def route(path):
+
+    return render_template('index.html')
+
+
+@app.route('/api/categories')
+def get_categories():
+
+    categories = crud.get_all_categories()
+
+    category = []
+
+    for items in categories:
+        category.append(items.name)
+
+    return jsonify(category)
 
 
 if __name__ == "__main__":
