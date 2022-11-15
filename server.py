@@ -23,17 +23,57 @@ def route(path):
     return render_template('index.html')
 
 
-@app.route('/api/categories')
-def get_categories():
+# @app.route('/user', methods=['POST'])
+# def make_user():
+#     """Create a new user"""
 
-    categories = crud.get_all_categories()
+#     email = request.form.get('email')
+#     password = request.form.get('password')
 
-    category = []
+#     checking_user = crud.get_user_by_email(email)
 
-    for items in categories:
-        category.append(items.name)
+#     if checking_user:
+#         flash("This email is already for use by an existing user.")
+#     else:
+#         checking_user = crud.create_user(email, password)
+#         db.session.add(checking_user)
+#         db.session.commit()
+#         flash("You have successfully created an account! Please login.")
 
-    return jsonify(category)
+#     return redirect('/')
+
+
+# @app.route('/api/login', methods=['POST'])
+# def login_user():
+
+#     email = request.form.get('email')
+#     password = request.form.get('password')
+
+#     checking_user = crud.get_user_password_and_user_id(email)
+
+#     user_password, user_id = checking_user
+
+#     # if password == user_password:
+#     #     session['user_id'] = user_id
+#     #     flash("Logged in!")
+#     #     return redirect('/users/<user_id>')
+#     # elif not user_id:
+#     #     flash("User does not exist.")
+#     # else:
+#     #     flash("Password does not match. Please try again.")
+
+
+# @app.route('/api/categories')
+# def get_categories():
+
+#     categories = crud.get_all_categories()
+
+#     category = []
+
+#     for items in categories:
+#         category.append(items.name)
+
+#     return jsonify(category)
 
 
 if __name__ == "__main__":

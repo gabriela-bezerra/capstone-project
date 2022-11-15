@@ -1,10 +1,18 @@
 function App() {
-    // const [categories, setCategories] = useState({});
+    // const [categories, setCategories] = React.useState([]);
 
     // React.useEffect(() => {
     //     fetch('/api/categories')
     //         .then((response) => response.json())
     //         .then((categoryData) => setCategories(categoryData));
+    // }, []);
+
+    // const [user, setUser] = React.useState({});
+
+    // React.useEffect(() => {
+    //     fetch('/api/login')
+    //         .then((response) => response.json())
+    //         .then((userData) => setUser(userData));
     // }, []);
 
     return (
@@ -18,8 +26,21 @@ function App() {
                 <ReactRouterDOM.Route exact path="/login">
                     <LoginForm />
                 </ReactRouterDOM.Route>
-
-
+                <ReactRouterDOM.Route exact path="/sign-up">
+                    <SignUpForm />
+                </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path="/add-restaurant">
+                    <AddNewRestaurant />
+                </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path="/search-results">
+                    <SearchResult />
+                </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path="/restaurant-details">
+                    <RestaurantDetails />
+                </ReactRouterDOM.Route>
+                <ReactRouterDOM.Route exact path="/user-profile">
+                    <UserProfile />
+                </ReactRouterDOM.Route>
             </div>
         </ReactRouterDOM.BrowserRouter>
 
